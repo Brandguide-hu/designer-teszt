@@ -14,7 +14,8 @@ export async function subscribeToAudienceful({
   const API_KEY = process.env.AUDIENCEFUL_API_KEY;
 
   if (!API_KEY) {
-    throw new Error('Audienceful API key not configured');
+    console.error('AUDIENCEFUL_API_KEY is not set');
+    return { success: false, error: 'Server configuration error' };
   }
 
   try {
