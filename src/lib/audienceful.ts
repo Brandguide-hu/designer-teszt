@@ -11,7 +11,11 @@ export async function subscribeToAudienceful({
   secondaryType,
   allScores,
 }: SubscribeParams): Promise<{ success: boolean; error?: string }> {
-  const API_KEY = process.env.AUDIENCEFUL_API_KEY;
+  // Netlify nem engedi a pontot a env var értékben, ezért base64-ben tároljuk
+  const API_KEY_BASE64 = process.env.AUDIENCEFUL_API_KEY_BASE64;
+  const API_KEY = API_KEY_BASE64
+    ? Buffer.from(API_KEY_BASE64, 'base64').toString('utf-8')
+    : process.env.AUDIENCEFUL_API_KEY;
 
   if (!API_KEY) {
     console.error('AUDIENCEFUL_API_KEY is not set');
