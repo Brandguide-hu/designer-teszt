@@ -11,10 +11,11 @@ export async function subscribeToAudienceful({
   secondaryType,
   allScores,
 }: SubscribeParams): Promise<{ success: boolean; error?: string }> {
-  // Netlify nem engedi a pontot a env var értékben, ezért base64-ben tároljuk
-  const API_KEY_BASE64 = process.env.AUDIENCEFUL_API_KEY_BASE64;
-  const API_KEY = API_KEY_BASE64
-    ? Buffer.from(API_KEY_BASE64, 'base64').toString('utf-8')
+  // Netlify: két részben tároljuk a kulcsot (a pont előtt és után)
+  const PART1 = process.env.AUDIENCEFUL_KEY_PART1;
+  const PART2 = process.env.AUDIENCEFUL_KEY_PART2;
+  const API_KEY = PART1 && PART2
+    ? `${PART1}.${PART2}`
     : process.env.AUDIENCEFUL_API_KEY;
 
   if (!API_KEY) {
