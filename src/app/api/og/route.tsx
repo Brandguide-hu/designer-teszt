@@ -37,7 +37,6 @@ export async function GET(request: NextRequest) {
           padding: '48px',
         }}
       >
-        {/* White card */}
         <div
           style={{
             display: 'flex',
@@ -52,14 +51,13 @@ export async function GET(request: NextRequest) {
             boxShadow: '0 8px 32px rgba(0,0,0,0.08)',
           }}
         >
-          {/* Emoji */}
-          <div style={{ fontSize: '80px', marginBottom: '16px' }}>
+          <div style={{ display: 'flex', fontSize: '80px', marginBottom: '16px' }}>
             {primaryType.emoji}
           </div>
 
-          {/* Type name */}
           <div
             style={{
+              display: 'flex',
               fontSize: '64px',
               fontWeight: 700,
               color: '#222331',
@@ -70,7 +68,6 @@ export async function GET(request: NextRequest) {
             {primaryType.name}
           </div>
 
-          {/* Progress bar + percentage */}
           <div
             style={{
               display: 'flex',
@@ -79,20 +76,19 @@ export async function GET(request: NextRequest) {
               marginBottom: '32px',
             }}
           >
-            {/* Progress bar background */}
             <div
               style={{
+                display: 'flex',
                 width: '320px',
                 height: '16px',
                 backgroundColor: '#E5E5E5',
                 borderRadius: '8px',
                 overflow: 'hidden',
-                display: 'flex',
               }}
             >
-              {/* Progress bar fill */}
               <div
                 style={{
+                  display: 'flex',
                   width: `${(primaryPct / 100) * 320}px`,
                   height: '100%',
                   backgroundColor: '#222331',
@@ -102,6 +98,7 @@ export async function GET(request: NextRequest) {
             </div>
             <div
               style={{
+                display: 'flex',
                 fontSize: '48px',
                 fontWeight: 700,
                 color: '#222331',
@@ -111,9 +108,9 @@ export async function GET(request: NextRequest) {
             </div>
           </div>
 
-          {/* Separator */}
           <div
             style={{
+              display: 'flex',
               width: '200px',
               height: '1px',
               backgroundColor: '#E5E5E5',
@@ -121,9 +118,9 @@ export async function GET(request: NextRequest) {
             }}
           />
 
-          {/* Secondary type */}
           <div
             style={{
+              display: 'flex',
               fontSize: '28px',
               fontWeight: 500,
               color: '#70728E',
@@ -133,7 +130,6 @@ export async function GET(request: NextRequest) {
           </div>
         </div>
 
-        {/* Footer */}
         <div
           style={{
             display: 'flex',
@@ -144,6 +140,7 @@ export async function GET(request: NextRequest) {
         >
           <div
             style={{
+              display: 'flex',
               fontSize: '18px',
               fontWeight: 600,
               color: '#222331',
@@ -154,6 +151,7 @@ export async function GET(request: NextRequest) {
           </div>
           <div
             style={{
+              display: 'flex',
               fontSize: '18px',
               fontWeight: 500,
               color: '#70728E',
