@@ -12,6 +12,15 @@ const types: Record<string, { name: string; emoji: string }> = {
   stratega: { name: 'STRATÉGA', emoji: '🎯' },
 };
 
+// Load Inter font from Google Fonts (TTF format)
+const interBoldPromise = fetch(
+  'https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf'
+).then((res) => res.arrayBuffer());
+
+const interMediumPromise = fetch(
+  'https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuI6fMZg.ttf'
+).then((res) => res.arrayBuffer());
+
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
 
@@ -22,6 +31,11 @@ export async function GET(request: NextRequest) {
 
   const primaryType = types[primary] || types.vizionarius;
   const secondaryType = types[secondary] || types.stratega;
+
+  const [interBold, interMedium] = await Promise.all([
+    interBoldPromise,
+    interMediumPromise,
+  ]);
 
   return new ImageResponse(
     (
@@ -35,6 +49,7 @@ export async function GET(request: NextRequest) {
           justifyContent: 'center',
           backgroundColor: '#FFF012',
           padding: '48px',
+          fontFamily: 'Inter',
         }}
       >
         <div
@@ -142,7 +157,7 @@ export async function GET(request: NextRequest) {
             style={{
               display: 'flex',
               fontSize: '18px',
-              fontWeight: 600,
+              fontWeight: 700,
               color: '#222331',
               letterSpacing: '0.05em',
             }}
@@ -165,6 +180,20 @@ export async function GET(request: NextRequest) {
     {
       width: 1200,
       height: 630,
+      fonts: [
+        {
+          name: 'Inter',
+          data: interBold,
+          weight: 700,
+          style: 'normal',
+        },
+        {
+          name: 'Inter',
+          data: interMedium,
+          weight: 500,
+          style: 'normal',
+        },
+      ],
     }
   );
 }
