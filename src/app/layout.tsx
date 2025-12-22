@@ -10,34 +10,34 @@ const inter = Inter({
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://teszt.helloyellow.hu';
+
 export const metadata: Metadata = {
   title: 'Designer Típus Teszt | Hello Yellow',
   description:
     'Fedezd fel, milyen típusú designer vagy! 10 kérdés, 2 perc, és megmutatjuk az erősségeidet.',
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL || 'https://teszt.brandguide.hu'
-  ),
+  metadataBase: new URL(baseUrl),
   openGraph: {
-    title: 'Designer Típus Teszt | Hello Yellow',
+    title: 'Milyen típusú designer vagy? – Designer Típus Teszt',
     description:
-      'Fedezd fel, milyen típusú designer vagy! 10 kérdés, 2 perc, és megmutatjuk az erősségeidet.',
+      '10 egyszerű kérdés, és megmutatjuk, milyen designer típusba tartozol. Fedezd fel az erősségeid!',
     type: 'website',
     locale: 'hu_HU',
     images: [
       {
-        url: '/og/default.png',
+        url: `${baseUrl}/api/og/home`,
         width: 1200,
         height: 630,
-        alt: 'Designer Típus Teszt',
+        alt: 'Designer Típus Teszt - Milyen típusú designer vagy?',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Designer Típus Teszt | Hello Yellow',
+    title: 'Milyen típusú designer vagy? – Designer Típus Teszt',
     description:
-      'Fedezd fel, milyen típusú designer vagy! 10 kérdés, 2 perc, és megmutatjuk az erősségeidet.',
-    images: ['/og/default.png'],
+      '10 egyszerű kérdés, és megmutatjuk, milyen designer típusba tartozol. Fedezd fel az erősségeid!',
+    images: [`${baseUrl}/api/og/home`],
   },
 };
 
