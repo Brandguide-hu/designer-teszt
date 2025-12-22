@@ -37,7 +37,7 @@ export default function Home() {
     if (result) {
       const shareId = generateShareId();
       router.push(
-        `/eredmeny/${result.primary}?alt=${result.secondary}&s=${shareId}`
+        `/eredmeny/${result.primary}?alt=${result.secondary}&primaryPct=${result.primaryPct}&secondaryPct=${result.secondaryPct}&s=${shareId}`
       );
     }
   }, [result, router]);
