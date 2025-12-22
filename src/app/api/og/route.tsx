@@ -1,7 +1,5 @@
-import { ImageResponse } from '@vercel/og';
+import { ImageResponse } from 'next/og';
 import { NextRequest } from 'next/server';
-
-export const runtime = 'edge';
 
 const types: Record<string, { name: string; emoji: string }> = {
   kameleon: { name: 'KAMÉLEON', emoji: '🦎' },
