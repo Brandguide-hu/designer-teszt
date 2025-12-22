@@ -81,31 +81,12 @@ export async function GET() {
             <div
               style={{
                 display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
+                fontSize: '56px',
+                fontWeight: 700,
+                color: '#222331',
               }}
             >
-              <div
-                style={{
-                  display: 'flex',
-                  fontSize: '56px',
-                  fontWeight: 700,
-                  color: '#222331',
-                }}
-              >
-                designer vagy?
-              </div>
-              {/* Underline */}
-              <div
-                style={{
-                  display: 'flex',
-                  width: '340px',
-                  height: '8px',
-                  backgroundColor: '#FFF012',
-                  borderRadius: '4px',
-                  marginTop: '-12px',
-                }}
-              />
+              designer vagy?
             </div>
           </div>
 
