@@ -6,9 +6,22 @@ import { motion } from 'framer-motion';
 import { Button, Input, Checkbox } from '@/components/ui';
 import { QuizResult } from '@/lib/types';
 import { trackEmailSubmitted } from '@/lib/analytics';
+import { completeSubmission } from '@/lib/supabase';
+
+interface ResultData {
+  primaryType: string;
+  primaryTypeName: string;
+  primaryPercentage: number;
+  secondaryType: string;
+  secondaryTypeName: string;
+  secondaryPercentage: number;
+  allScores: Record<string, { score: number; percentage: number }>;
+}
 
 interface EmailFormProps {
   result: QuizResult;
+  submissionId: string;
+  resultData: ResultData;
   onSuccess: () => void;
 }
 
@@ -17,7 +30,12 @@ interface FormData {
   gdpr: boolean;
 }
 
-export default function EmailForm({ result, onSuccess }: EmailFormProps) {
+export default function EmailForm({
+  result,
+  submissionId,
+  resultData,
+  onSuccess,
+}: EmailFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,6 +50,7 @@ export default function EmailForm({ result, onSuccess }: EmailFormProps) {
     setError(null);
 
     try {
+      // Save to Audienceful
       const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
@@ -51,6 +70,9 @@ export default function EmailForm({ result, onSuccess }: EmailFormProps) {
         throw new Error(responseData.error || 'Hiba történt');
       }
 
+      // Complete submission in Supabase with email
+      await completeSubmission(submissionId, data.email, resultData);
+
       trackEmailSubmitted(result.primary);
       onSuccess();
     } catch (err) {
@@ -61,6 +83,19 @@ export default function EmailForm({ result, onSuccess }: EmailFormProps) {
             : err.message
           : 'Hiba történt. Kérlek, próbáld újra.'
       );
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  // Skip email - mark as anonymous
+  const handleSkip = async () => {
+    setIsSubmitting(true);
+    try {
+      await completeSubmission(submissionId, null, resultData);
+      onSuccess();
+    } catch {
+      setError('Hiba történt. Kérlek, próbáld újra.');
     } finally {
       setIsSubmitting(false);
     }
@@ -132,6 +167,15 @@ export default function EmailForm({ result, onSuccess }: EmailFormProps) {
         >
           Mutasd az eredményem!
         </Button>
+
+        <button
+          type="button"
+          onClick={handleSkip}
+          disabled={isSubmitting}
+          className="w-full text-center text-sm text-[#6B7280] hover:text-[#1A1A1A] transition-colors"
+        >
+          Kihagyom, csak mutasd az eredményt →
+        </button>
       </form>
     </motion.div>
   );

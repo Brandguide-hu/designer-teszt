@@ -10,6 +10,7 @@ import { EmailForm } from '@/components/email';
 import Loading from '@/components/Loading';
 import { QuizResult } from '@/lib/types';
 import { generateShareId } from '@/lib/share';
+import { typeData } from '@/lib/quiz-data';
 
 type Phase = 'hero' | 'quiz' | 'email' | 'loading';
 
@@ -17,11 +18,16 @@ export default function Home() {
   const router = useRouter();
   const [phase, setPhase] = useState<Phase>('hero');
   const [result, setResult] = useState<QuizResult | null>(null);
+  const [submissionId, setSubmissionId] = useState<string | null>(null);
 
-  const handleQuizComplete = useCallback((quizResult: QuizResult) => {
-    setResult(quizResult);
-    setPhase('email');
-  }, []);
+  const handleQuizComplete = useCallback(
+    (quizResult: QuizResult, _answers: Record<number, string>, subId: string) => {
+      setResult(quizResult);
+      setSubmissionId(subId);
+      setPhase('email');
+    },
+    []
+  );
 
   const handleEmailSuccess = useCallback(() => {
     setPhase('loading');
@@ -36,6 +42,29 @@ export default function Home() {
     }
   }, [result, router]);
 
+  // Build result data for submission
+  const getResultData = useCallback(() => {
+    if (!result) return null;
+
+    const allScoresData: Record<string, { score: number; percentage: number }> = {};
+    for (const [type, score] of Object.entries(result.allScores)) {
+      allScoresData[type] = {
+        score,
+        percentage: result.allPcts[type as keyof typeof result.allPcts],
+      };
+    }
+
+    return {
+      primaryType: result.primary,
+      primaryTypeName: typeData[result.primary].name,
+      primaryPercentage: result.primaryPct,
+      secondaryType: result.secondary,
+      secondaryTypeName: typeData[result.secondary].name,
+      secondaryPercentage: result.secondaryPct,
+      allScores: allScoresData,
+    };
+  }, [result]);
+
   return (
     <>
       <Header />
@@ -49,10 +78,12 @@ export default function Home() {
             <QuizContainer key="quiz" onComplete={handleQuizComplete} />
           )}
 
-          {phase === 'email' && result && (
+          {phase === 'email' && result && submissionId && (
             <EmailForm
               key="email"
               result={result}
+              submissionId={submissionId}
+              resultData={getResultData()!}
               onSuccess={handleEmailSuccess}
             />
           )}
