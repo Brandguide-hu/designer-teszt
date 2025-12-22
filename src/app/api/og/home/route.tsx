@@ -1,6 +1,10 @@
 import { ImageResponse } from 'next/og';
 
 // Load Inter font from Google Fonts (TTF format)
+const interBlackPromise = fetch(
+  'https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyeMZg.ttf'
+).then((res) => res.arrayBuffer());
+
 const interBoldPromise = fetch(
   'https://fonts.gstatic.com/s/inter/v20/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuFuYMZg.ttf'
 ).then((res) => res.arrayBuffer());
@@ -10,7 +14,8 @@ const interMediumPromise = fetch(
 ).then((res) => res.arrayBuffer());
 
 export async function GET() {
-  const [interBold, interMedium] = await Promise.all([
+  const [interBlack, interBold, interMedium] = await Promise.all([
+    interBlackPromise,
     interBoldPromise,
     interMediumPromise,
   ]);
@@ -71,7 +76,7 @@ export async function GET() {
               style={{
                 display: 'flex',
                 fontSize: '56px',
-                fontWeight: 700,
+                fontWeight: 900,
                 color: '#222331',
                 marginBottom: '8px',
               }}
@@ -82,7 +87,7 @@ export async function GET() {
               style={{
                 display: 'flex',
                 fontSize: '56px',
-                fontWeight: 700,
+                fontWeight: 900,
                 color: '#222331',
               }}
             >
@@ -161,6 +166,12 @@ export async function GET() {
       width: 1200,
       height: 630,
       fonts: [
+        {
+          name: 'Inter',
+          data: interBlack,
+          weight: 900,
+          style: 'normal',
+        },
         {
           name: 'Inter',
           data: interBold,
