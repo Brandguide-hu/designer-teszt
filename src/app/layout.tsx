@@ -8,7 +8,7 @@ const inter = Inter({
   subsets: ['latin', 'latin-ext'],
 });
 
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-WS989LHW';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://teszt.helloyellow.hu';
 
