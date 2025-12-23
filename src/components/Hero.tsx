@@ -75,7 +75,7 @@ export default function Hero({ onStart }: HeroProps) {
         transition={{ delay: 0.7 }}
         className="text-sm text-[#6B7280] mt-6"
       >
-        ⏱️ Kb. 2 perc • 🔒 Anonim
+        ⏱️ Kb. 2 perc • 🔒 Biztonságos
       </motion.p>
     </motion.div>
   );
