@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     locale: 'hu_HU',
     images: [
       {
-        url: `${baseUrl}/api/og/home`,
+        url: '/og-home.jpg',
         width: 1200,
         height: 630,
         alt: 'Designer Típus Teszt - Milyen típusú designer vagy?',
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     title: 'Milyen típusú designer vagy? – Designer Típus Teszt',
     description:
       '10 egyszerű kérdés, és megmutatjuk, milyen designer típusba tartozol. Fedezd fel az erősségeid!',
-    images: [`${baseUrl}/api/og/home`],
+    images: ['/og-home.jpg'],
   },
 };
 
