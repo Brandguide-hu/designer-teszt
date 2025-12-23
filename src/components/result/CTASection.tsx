@@ -7,7 +7,7 @@ import { trackCTAClicked } from '@/lib/analytics';
 export default function CTASection() {
   const handleClick = () => {
     trackCTAClicked('result_page');
-    window.open('https://brandguide.hu', '_blank');
+    window.open('https://ai.brandguide.hu', '_blank');
   };
 
   return (
